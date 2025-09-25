@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free TI-84 Calculator Online | Graphing, Stats & More</title>
+    <meta name="description" content="Use a free TI-84 calculator online with graphing, stats, matrices, and scientific functions. Access TI-83, TI-84, TI-85 & TI-86 models directly in your browser.">
+    <link rel="canonical" href="https://yourdomain.com/ti-calculator-tool" />
+
+    <!-- Robots meta fallback -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Sitemap reference -->
+    <link rel="sitemap" type="application/xml" href="https://yourdomain.com/sitemap.xml" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1D8497;
+            --bg-secondary: #156b7a;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --accent: #00ff41;
+            --button-bg: #2a2a2a;
+            --button-hover: #3a3a3a;
+            --border: #444;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --modal-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        
+        .navbar {
+            background: var(--bg-secondary);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #00cc33;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--button-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--button-hover);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Home Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Calculator Section */
+        .calculator-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+
+        .calculator {
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .model-selector-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .calculator-display {
+            background: #1a4a3a;
+            color: var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            min-height: 120px;
+            border: 2px solid #0a3a2a;
+        }
+
+        .display-main {
+            font-size: 1.5rem;
+            text-align: right;
+            margin-bottom: 10px;
+            min-height: 30px;
+        }
+
+        .display-history {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            max-height: 60px;
+            overflow-y: auto;
+        }
+
+        .calculator-modes {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 8px;
+            background: var(--button-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .mode-btn.active {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .calc-btn {
+            padding: 15px 8px;
+            background: var(--button-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calc-btn:hover {
+            background: var(--button-hover);
+            transform: translateY(-1px);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
+        }
+
+        .calc-btn.operator {
+            background: #4a4a4a;
+        }
+
+        .calc-btn.function {
+            background: #3a5a3a;
+            font-size: 0.8rem;
+        }
+
+        .calc-btn.wide {
+            grid-column: span 2;
+        }
+
+        /* Graph Canvas */
+        .graph-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .graph-canvas {
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: #1a1a1a;
+        }
+
+        .graph-controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .graph-input {
+            padding: 5px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            background: var(--button-bg);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+        }
+
+        /* Matrix Display */
+        .matrix-container {
+            margin-top: 20px;
+        }
+
+        .matrix-display {
+            background: var(--button-bg);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .matrix-controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-bg);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .model-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.2);
+        }
+
+        .model-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Auth Form */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: var(--button-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .calculator {
+                margin: 0 10px;
+            }
+
+            .calculator-buttons {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .calc-btn {
+                padding: 12px 6px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+  
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">TI-84 Calculator</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showSection('calculator')">Calculator</a></li>
+                    <li><a href="#" onclick="showSection('tutorials')">Tutorials</a></li>
+                    <li><a href="#" onclick="showSection('faq')">FAQ</a></li>
+                    <li><a href="#" onclick="showSection('about')">About</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="btn btn-secondary" onclick="toggleTheme()">🌙</button>
+                    <button class="btn btn-primary" onclick="showAuthModal()" id="authBtn">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Free TI-84 Calculator Online</h1>
+                <p>Want a fast, free TI-84 calculator you can use right in your browser? This guide shows you how to start, what features you'll get, and the exact steps to graph, run stats, and more—no download required.</p>
+                <button class="btn btn-primary" onclick="showSection('calculator')">Start TI-84 Calculator</button>
+            </div>
+            
+             <!-- Added comprehensive what is TI-84 section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>What Is a TI-84 Calculator?</h2>
+                    <p>The TI-84 is a classroom-standard graphing calculator used in algebra, trigonometry, calculus, and statistics. An online TI-84 reproduces the familiar keys, menus, and functions in your browser so you can get results quickly—on desktop or mobile—without installing anything.</p>
+                    
+                    <h3 style="margin-top: 2rem; color: var(--accent);">TI-84 vs TI-84 Plus vs TI-84 Plus CE (CE Python)</h3>
+                    <ul style="margin-top: 1rem; padding-left: 2rem;">
+                        <li><strong>TI-84 / Plus:</strong> Classic key layout, core graphing and statistics, reliable for most courses.</li>
+                        <li><strong>TI-84 Plus CE:</strong> Color screen, faster processor, better battery.</li>
+                        <li><strong>TI-84 Plus CE Python:</strong> Adds a built-in Python environment for basic coding exercises.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Multiple Calculator Models</h3>
+                    <p>Choose from TI-83, TI-84, TI-85, and TI-86 calculators, each with authentic button layouts and functions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Advanced Graphing</h3>
+                    <p>Plot functions, analyze graphs, and explore mathematical relationships with our interactive graphing tools.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Matrix Operations</h3>
+                    <p>Perform complex matrix calculations including multiplication, determinants, and transformations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Save & Export</h3>
+                    <p>Save your calculations and export your work for later use or sharing with others.</p>
+                </div>
+            </div>
+
+             <!-- Added TI-84 features section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>TI-84 Calculator Features at a Glance</h2>
+                    <ul style="padding-left: 2rem; margin-top: 1rem;">
+                        <li><strong>Scientific & basic math:</strong> fractions, powers/roots, logs, trig.</li>
+                        <li><strong>Graphing:</strong> plot functions, TABLE, TRACE, intersections, maxima/minima, zeros.</li>
+                        <li><strong>Statistics:</strong> 1-Var and 2-Var stats, STAT → CALC, common regressions.</li>
+                        <li><strong>Matrices & complex numbers:</strong> matrix ops, determinants, complex arithmetic.</li>
+                        <li><strong>Apps & add-ons:</strong> finance, conversions, or extras if provided.</li>
+                        <li><strong>Cross-device:</strong> use on desktop or mobile; nothing to install.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+         
+        <section id="calculator" class="section">
+            <div class="calculator-container">
+                <div class="calculator">
+                    <div class="calculator-header">
+                        <button class="model-selector-btn" onclick="showModelSelector()">
+                            <span id="currentModel">TI-84 Plus</span> ▼
+                        </button>
+                        <div class="nav-actions" style="justify-content: center; margin-top: 10px;">
+                            <button class="btn btn-secondary" onclick="saveCalculation()" style="font-size: 0.8rem; padding: 0.3rem 0.6rem;">Save</button>
+                            <button class="btn btn-secondary" onclick="exportHistory()" style="font-size: 0.8rem; padding: 0.3rem 0.6rem;">Export</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-display">
+                        <div class="display-main" id="display">0</div>
+                        <div class="display-history" id="history"></div>
+                    </div>
+
+                    <div class="calculator-modes">
+                        <button class="mode-btn active" onclick="setMode('basic')" id="basicMode">Basic</button>
+                        <button class="mode-btn" onclick="setMode('graph')" id="graphMode">Graph</button>
+                        <button class="mode-btn" onclick="setMode('matrix')" id="matrixMode">Matrix</button>
+                        <button class="mode-btn" onclick="setMode('stats')" id="statsMode">Stats</button>
+                    </div>
+
+                    <div class="calculator-buttons" id="calculatorButtons">
+                         Buttons will be generated by JavaScript 
+                    </div>
+
+                     Graph Container 
+                    <div class="graph-container hidden" id="graphContainer">
+                        <canvas class="graph-canvas" id="graphCanvas" width="360" height="240"></canvas>
+                        <div class="graph-controls">
+                            <input type="text" class="graph-input" id="functionInput" placeholder="Enter function (e.g., x^2)" style="width: 200px;">
+                            <button class="btn btn-secondary" onclick="plotFunction()">Plot</button>
+                            <button class="btn btn-secondary" onclick="clearGraph()">Clear</button>
+                        </div>
+                    </div>
+
+                     Matrix Container 
+                    <div class="matrix-container hidden" id="matrixContainer">
+                        <div class="matrix-display" id="matrixDisplay">Matrix operations will appear here</div>
+                        <div class="matrix-controls">
+                            <button class="btn btn-secondary" onclick="createMatrix()">New Matrix</button>
+                            <button class="btn btn-secondary" onclick="matrixTranspose()">Transpose</button>
+                            <button class="btn btn-secondary" onclick="matrixDeterminant()">Det</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+          
+        <section id="tutorials" class="section">
+            <h2 class="text-center mb-2">Calculator Tutorials</h2>
+            
+             <!-- Added comprehensive how-to-use section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>How to Use a TI-84 Calculator (Step-by-Step)</h2>
+                    <ol style="padding-left: 2rem; margin-top: 1rem;">
+                        <li><strong>Set MODE:</strong> Choose Degree/Radian, Float display, and other preferences.</li>
+                        <li><strong>Enter functions:</strong> Press Y=, type something like 2x+3 in Y1.</li>
+                        <li><strong>Graph it:</strong> Press GRAPH. If you don't see it, try ZOOM → 6: ZStandard.</li>
+                        <li><strong>Explore:</strong> Use TRACE to move along the curve; note x/y pairs.</li>
+                        <li><strong>Tables:</strong> Press 2nd GRAPH (TABLE) to see values; adjust with TBLSET.</li>
+                        <li><strong>Stats in seconds:</strong> STAT → EDIT to enter lists, then STAT → CALC → 1-Var Stats (or 2-Var).</li>
+                        <li><strong>Find key points:</strong> 2nd → CALC on the graph to locate zeros, intersections, and extrema.</li>
+                    </ol>
+                </div>
+            </div>
+
+             <!-- Added shortcuts and keystrokes section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>TI-84 Shortcuts, Menus, and Keystrokes</h2>
+                    <ul style="padding-left: 2rem; margin-top: 1rem;">
+                        <li><strong>2nd</strong> opens yellow labels; <strong>ALPHA</strong> types letters.</li>
+                        <li><strong>MODE</strong> sets angle/precision; <strong>MATH</strong> holds roots, fractions, and calculus tools.</li>
+                        <li><strong>STAT</strong> manages lists, stats, and regressions.</li>
+                        <li><strong>WINDOW/ZOOM</strong> controls the view; <strong>TRACE</strong> reads exact coordinates.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Basic Operations</h3>
+                    <p>Learn fundamental arithmetic operations, memory functions, and basic scientific calculations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Graphing Functions</h3>
+                    <p>Master function plotting, graph analysis, and exploring mathematical relationships visually.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Matrix Mathematics</h3>
+                    <p>Understand matrix operations, linear algebra, and solving systems of equations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Statistics & Data</h3>
+                    <p>Analyze data sets, calculate statistical measures, and create data visualizations.</p>
+                </div>
+            </div>
+
+             <!-- Added programming section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>Programming on TI-84 (TI-BASIC & CE Python)</h2>
+                    <ul style="padding-left: 2rem; margin-top: 1rem;">
+                        <li><strong>Install safely:</strong> Only load programs from trusted sources; follow your tool's import steps.</li>
+                        <li><strong>TI-BASIC demo:</strong> PRGM → NEW, name it, then add simple Prompt A, Disp A+1 lines to see flow.</li>
+                        <li><strong>Python (CE Python):</strong> Great for loops, conditions, and math snippets; keep scripts small.</li>
+                    </ul>
+                </div>
+            </div>
+
+             <!-- Added best practices section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>Best Practices for Algebra, Trig, Calculus, and Stats</h2>
+                    
+                    <h3 style="color: var(--accent); margin-top: 1.5rem;">Quadratic formula & solver tips</h3>
+                    <p>Graph the quadratic and use CALC → zero to verify roots. Keep WINDOW reasonable for clarity.</p>
+                    
+                    <h3 style="color: var(--accent); margin-top: 1.5rem;">Derivatives (nDeriv) & integrals (fnInt)</h3>
+                    <p>MATH → nDeriv and fnInt can estimate slopes and areas. Use appropriate bounds and step sizes.</p>
+                    
+                    <h3 style="color: var(--accent); margin-top: 1.5rem;">Hypothesis tests & confidence intervals (STAT → TESTS)</h3>
+                    <p>Know your test first (Z, T, χ²). Organize data in L1, L2, etc., then run the matching test.</p>
+                </div>
+            </div>
+        </section>
+
+         
+        <section id="faq" class="section">
+            <h2 class="text-center mb-2">Frequently Asked Questions</h2>
+            
+             <!-- Added comprehensive FAQ content -->
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Is there a free TI-84 calculator online?</h3>
+                    <p>Yes—many tools emulate core TI-84 functions in your browser at no cost.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Does it work like a real TI-84 Plus/CE?</h3>
+                    <p>For common class tasks—graphing, tables, stats—yes. Advanced app behavior can vary by tool.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Does it work on mobile?</h3>
+                    <p>Most online versions do. Rotate to landscape for easier typing and viewing.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Why won't my TI-84 graph?</h3>
+                    <p>Check Y= for the function, turn the plot ON, then try ZOOM → ZStandard.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>How do I load programs or games?</h3>
+                    <p>On physical devices, use TI Connect CE. In the browser, follow the tool's import instructions (if supported).</p>
+                </div>
+                <div class="feature-card">
+                    <h3>How do I clear memory without losing everything?</h3>
+                    <p>Back up lists/programs first. Use reset options carefully; only clear what you must.</p>
+                </div>
+            </div>
+
+             <!-- Added troubleshooting section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>Common Errors & Troubleshooting</h2>
+                    <h3 style="color: var(--accent); margin-top: 1rem;">ERR: DOMAIN, SYNTAX, WINDOW, INVALID DIM — quick fixes</h3>
+                    <ul style="padding-left: 2rem; margin-top: 1rem;">
+                        <li><strong>DOMAIN:</strong> Inputs outside allowed range (e.g., even root of a negative). Recheck math mode and inputs.</li>
+                        <li><strong>SYNTAX:</strong> A typo or missing parenthesis. Re-enter carefully.</li>
+                        <li><strong>WINDOW:</strong> Graph is off-screen. Use ZOOM → ZStandard.</li>
+                        <li><strong>INVALID DIM:</strong> Mismatched list lengths or matrix sizes. Align sizes and retry.</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--accent); margin-top: 1.5rem;">When to Reset, RAM Clear, or Update OS</h3>
+                    <p>If keys lag or lists behave oddly, consider a RAM clear (knowing it resets settings). Physical devices may benefit from an OS update via TI Connect CE; confirm compatibility first.</p>
+                </div>
+            </div>
+
+             <!-- Added exam usage section -->
+            <div class="features">
+                <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                    <h2>TI-84 Calculator for Exams (SAT, ACT, AP, IB)</h2>
+                    <p>Many exams allow TI-84-class devices, but always check official policies in your region, school, or test center. Practice with timed sets and consider the Pomodoro Technique to improve focus and pacing.</p>
+                </div>
+            </div>
+        </section>
+
+         
+        <section id="about" class="section">
+            <div class="hero">
+                <h2>About TI Calculator Tool</h2>
+                <p>Our mission is to make powerful mathematical tools accessible to everyone. Whether you're a student, teacher, or professional, our online TI calculator suite provides the functionality you need without requiring physical hardware.</p>
+                
+                 <!-- Added alternatives and competitors section -->
+                <div class="features" style="margin-top: 3rem;">
+                    <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                        <h2>TI-84 Alternatives and Competitors</h2>
+                        
+                        <h3 style="color: var(--accent); margin-top: 1.5rem;">Desmos (Online) vs TI-84</h3>
+                        <ul style="padding-left: 2rem; margin-top: 0.5rem;">
+                            <li><strong>Desmos:</strong> Beautiful graphs and easy sharing.</li>
+                            <li><strong>TI-84:</strong> Exam-style menus, keystrokes, and workflows students are graded on.</li>
+                        </ul>
+                        
+                        <h3 style="color: var(--accent); margin-top: 1.5rem;">Casio fx-9750GIII / fx-9860GIII</h3>
+                        <p>Comparable graphing features with different menus. If you switch brands, expect new keystrokes and function locations.</p>
+                    </div>
+                </div>
+
+                <div class="features mt-2">
+                    <div class="feature-card">
+                        <h3>For Students</h3>
+                        <p>Access TI calculators anytime, anywhere. Perfect for homework, exams, and learning mathematical concepts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>For Educators</h3>
+                        <p>Demonstrate calculations in class, create interactive lessons, and help students visualize mathematical concepts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>For Professionals</h3>
+                        <p>Perform complex calculations, analyze data, and solve engineering problems with professional-grade tools.</p>
+                    </div>
+                </div>
+
+                 <!-- Added downloads and firmware section -->
+                <div class="features">
+                    <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                        <h2>Downloads, Firmware & TI Connect CE</h2>
+                        
+                        <h3 style="color: var(--accent); margin-top: 1.5rem;">Updating the TI-84 Plus CE OS</h3>
+                        <p>Use TI Connect CE on a computer for firmware updates (physical devices only). Back up programs and lists, follow prompts, and don't disconnect during the process.</p>
+                        
+                        <h3 style="color: var(--accent); margin-top: 1.5rem;">Charging, Cables, and Battery Care</h3>
+                        <p>Use the correct cable, avoid full discharges, and keep devices out of extreme heat. For general guidance, see this overview on prolonging lithium-based batteries.</p>
+                    </div>
+                </div>
+
+                 <!-- Added quick-start checklist -->
+                <div class="features">
+                    <div class="feature-card" style="grid-column: 1 / -1; text-align: left;">
+                        <h2>Quick-Start Checklist</h2>
+                        <ol style="padding-left: 2rem; margin-top: 1rem;">
+                            <li>Open the online TI-84 and set MODE.</li>
+                            <li>Enter functions in Y= and GRAPH with ZStandard.</li>
+                            <li>Use TRACE, TABLE, and STAT for fast answers.</li>
+                        </ol>
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button class="btn btn-primary" onclick="showSection('calculator')">Start TI-84 Calculator</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+ 
+    <div class="modal" id="modelModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
+            <h2>Select Calculator Model</h2>
+            <div class="model-grid">
+                <div class="model-card" onclick="selectModel('ti83')">
+                    <h3>TI-83</h3>
+                    <p>Basic scientific and graphing calculator. Perfect for algebra and basic calculus.</p>
+                </div>
+                <div class="model-card" onclick="selectModel('ti84')">
+                    <h3>TI-84 Plus</h3>
+                    <p>Advanced graphing calculator with enhanced features for statistics and programming.</p>
+                </div>
+                <div class="model-card" onclick="selectModel('ti85')">
+                    <h3>TI-85</h3>
+                    <p>Engineering calculator with complex numbers and advanced mathematical functions.</p>
+                </div>
+                <div class="model-card" onclick="selectModel('ti86')">
+                    <h3>TI-86</h3>
+                    <p>Most advanced model with 3D graphing and symbolic mathematics capabilities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('authModal')">&times;</button>
+            <h2 id="authTitle">Login</h2>
+            <form class="auth-form" id="authForm">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" class="form-input" id="authEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" class="form-input" id="authPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="text-center mt-2">
+                    <span id="authSwitchText">Don't have an account?</span>
+                    <a href="#" onclick="toggleAuthMode()" style="color: var(--accent);" id="authSwitchLink">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let currentModel = 'ti84';
+        let currentMode = 'basic';
+        let display = '0';
+        let previousValue = null;
+        let operation = null;
+        let waitingForNewValue = false;
+        let calculationHistory = [];
+        let currentUser = null;
+        let isAuthMode = 'login';
+        let currentMatrix = [];
+        let graphFunctions = [];
+
+        // Calculator Models Configuration
+        const calculatorModels = {
+            ti83: {
+                name: 'TI-83',
+                buttons: [
+                    ['Y=', 'WINDOW', 'ZOOM', 'TRACE', 'GRAPH'],
+                    ['2ND', 'MODE', 'DEL', '◄', '►'],
+                    ['ALPHA', 'X,T,θ,n', 'STAT', '(', ')'],
+                    ['MATH', 'APPS', 'PRGM', 'VARS', 'CLEAR'],
+                    ['X⁻¹', 'SIN', 'COS', 'TAN', '^'],
+                    ['x²', ',', '(', ')', '÷'],
+                    ['LOG', '7', '8', '9', '×'],
+                    ['LN', '4', '5', '6', '-'],
+                    ['STO►', '1', '2', '3', '+'],
+                    ['ON', '0', '.', '(-)', 'ENTER']
+                ]
+            },
+            ti84: {
+                name: 'TI-84 Plus',
+                buttons: [
+                    ['Y=', 'WINDOW', 'ZOOM', 'TRACE', 'GRAPH'],
+                    ['2ND', 'MODE', 'DEL', '◄', '►'],
+                    ['ALPHA', 'X,T,θ,n', 'STAT', '(', ')'],
+                    ['MATH', 'APPS', 'PRGM', 'VARS', 'CLEAR'],
+                    ['X⁻¹', 'SIN', 'COS', 'TAN', '^'],
+                    ['x²', ',', '(', ')', '÷'],
+                    ['LOG', '7', '8', '9', '×'],
+                    ['LN', '4', '5', '6', '-'],
+                    ['STO►', '1', '2', '3', '+'],
+                    ['ON', '0', '.', '(-)', 'ENTER']
+                ]
+            },
+            ti85: {
+                name: 'TI-85',
+                buttons: [
+                    ['F1', 'F2', 'F3', 'F4', 'F5'],
+                    ['2ND', 'ALPHA', 'MORE', 'EXIT', '◄'],
+                    ['GRAPH', 'RANGE', 'ZOOM', 'TRACE', 'CLEAR'],
+                    ['x-VAR', 'SIN', 'COS', 'TAN', 'LN'],
+                    ['LOG', 'x²', '^', '(', ')'],
+                    ['÷', '7', '8', '9', 'DEL'],
+                    ['×', '4', '5', '6', '+/-'],
+                    ['-', '1', '2', '3', 'STO'],
+                    ['+', '0', '.', 'EE', 'ENTER']
+                ]
+            },
+            ti86: {
+                name: 'TI-86',
+                buttons: [
+                    ['F1', 'F2', 'F3', 'F4', 'F5'],
+                    ['2ND', 'ALPHA', 'MORE', 'EXIT', '◄'],
+                    ['GRAPH', 'TABLE', 'ZOOM', 'TRACE', 'CLEAR'],
+                    ['x-VAR', 'SIN', 'COS', 'TAN', 'LN'],
+                    ['LOG', 'x²', '^', '√', '('],
+                    [')', '÷', '7', '8', '9'],
+                    ['×', '4', '5', '6', '+/-'],
+                    ['-', '1', '2', '3', 'STO'],
+                    ['+', '0', '.', 'EE', 'ENTER']
+                ]
+            }
+        };
+
+        // Initialize Calculator
+        function initCalculator() {
+            loadUserData();
+            updateAuthButton();
+            generateButtons();
+            updateDisplay();
+            initGraph();
+        }
+
+        // Navigation Functions
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionName).classList.add('active');
+        }
+
+        // Model Selection
+        function showModelSelector() {
+            document.getElementById('modelModal').classList.add('active');
+        }
+
+        function selectModel(model) {
+            currentModel = model;
+            document.getElementById('currentModel').textContent = calculatorModels[model].name;
+            generateButtons();
+            closeModal('modelModal');
+        }
+
+        // Button Generation
+        function generateButtons() {
+            const buttonsContainer = document.getElementById('calculatorButtons');
+            const buttons = calculatorModels[currentModel].buttons;
+            
+            buttonsContainer.innerHTML = '';
+            
+            buttons.forEach(row => {
+                row.forEach(buttonText => {
+                    const button = document.createElement('button');
+                    button.className = 'calc-btn';
+                    button.textContent = buttonText;
+                    
+                    // Add special classes for different button types
+                    if (['÷', '×', '-', '+', '=', 'ENTER'].includes(buttonText)) {
+                        button.classList.add('operator');
+                    } else if (isNaN(buttonText) && buttonText !== '.' && buttonText !== '(-)') {
+                        button.classList.add('function');
+                    }
+                    
+                    button.onclick = () => handleButtonClick(buttonText);
+                    buttonsContainer.appendChild(button);
+                });
+            });
+        }
+
+        // Button Click Handler
+        function handleButtonClick(buttonText) {
+            console.log('[v0] Button clicked:', buttonText);
+            
+            // Number buttons
+            if (!isNaN(buttonText) || buttonText === '.') {
+                handleNumber(buttonText);
+            }
+            // Operation buttons
+            else if (['+', '-', '×', '÷'].includes(buttonText)) {
+                handleOperation(buttonText);
+            }
+            // Special buttons
+            else {
+                handleSpecialButton(buttonText);
+            }
+            
+            updateDisplay();
+        }
+
+        // Number Input Handler
+        function handleNumber(num) {
+            if (waitingForNewValue) {
+                display = num;
+                waitingForNewValue = false;
+            } else {
+                display = display === '0' ? num : display + num;
+            }
+        }
+
+        // Operation Handler
+        function handleOperation(nextOperation) {
+            const inputValue = parseFloat(display);
+            
+            if (previousValue === null) {
+                previousValue = inputValue;
+            } else if (operation) {
+                const currentValue = previousValue || 0;
+                const newValue = calculate(currentValue, inputValue, operation);
+                
+                display = String(newValue);
+                previousValue = newValue;
+                addToHistory(`${currentValue} ${operation} ${inputValue} = ${newValue}`);
+            }
+            
+            waitingForNewValue = true;
+            operation = nextOperation;
+        }
+
+        // Special Button Handler
+        function handleSpecialButton(buttonText) {
+            switch(buttonText) {
+                case 'CLEAR':
+                    display = '0';
+                    previousValue = null;
+                    operation = null;
+                    waitingForNewValue = false;
+                    break;
+                case 'ENTER':
+                case '=':
+                    if (operation && previousValue !== null) {
+                        const inputValue = parseFloat(display);
+                        const newValue = calculate(previousValue, inputValue, operation);
+                        display = String(newValue);
+                        addToHistory(`${previousValue} ${operation} ${inputValue} = ${newValue}`);
+                        previousValue = null;
+                        operation = null;
+                        waitingForNewValue = true;
+                    }
+                    break;
+                case '(-)':
+                    display = String(-parseFloat(display));
+                    break;
+                case 'DEL':
+                    display = display.length > 1 ? display.slice(0, -1) : '0';
+                    break;
+                case 'SIN':
+                    display = String(Math.sin(parseFloat(display) * Math.PI / 180));
+                    addToHistory(`sin(${parseFloat(display) * 180 / Math.PI}) = ${display}`);
+                    break;
+                case 'COS':
+                    display = String(Math.cos(parseFloat(display) * Math.PI / 180));
+                    addToHistory(`cos(${parseFloat(display) * 180 / Math.PI}) = ${display}`);
+                    break;
+                case 'TAN':
+                    display = String(Math.tan(parseFloat(display) * Math.PI / 180));
+                    addToHistory(`tan(${parseFloat(display) * 180 / Math.PI}) = ${display}`);
+                    break;
+                case 'LOG':
+                    display = String(Math.log10(parseFloat(display)));
+                    break;
+                case 'LN':
+                    display = String(Math.log(parseFloat(display)));
+                    break;
+                case 'x²':
+                    const value = parseFloat(display);
+                    display = String(value * value);
+                    addToHistory(`${value}² = ${display}`);
+                    break;
+                case '√':
+                    display = String(Math.sqrt(parseFloat(display)));
+                    break;
+                case '^':
+                    handleOperation('^');
+                    break;
+            }
+        }
+
+        // Calculate Function
+        function calculate(firstValue, secondValue, operation) {
+            switch(operation) {
+                case '+':
+                    return firstValue + secondValue;
+                case '-':
+                    return firstValue - secondValue;
+                case '×':
+                    return firstValue * secondValue;
+                case '÷':
+                    return firstValue / secondValue;
+                case '^':
+                    return Math.pow(firstValue, secondValue);
+                default:
+                    return secondValue;
+            }
+        }
+
+        // Display Update
+        function updateDisplay() {
+            document.getElementById('display').textContent = display;
+            document.getElementById('history').innerHTML = calculationHistory.slice(-5).join('<br>');
+        }
+
+        // History Management
+        function addToHistory(calculation) {
+            calculationHistory.push(calculation);
+            if (calculationHistory.length > 50) {
+                calculationHistory.shift();
+            }
+        }
+
+        // Mode Management
+        function setMode(mode) {
+            currentMode = mode;
+            
+            // Update mode buttons
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(mode + 'Mode').classList.add('active');
+            
+            // Show/hide mode-specific containers
+            document.getElementById('graphContainer').classList.toggle('hidden', mode !== 'graph');
+            document.getElementById('matrixContainer').classList.toggle('hidden', mode !== 'matrix');
+        }
+
+        // Graph Functions
+        function initGraph() {
+            const canvas = document.getElementById('graphCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Draw grid
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            
+            // Vertical lines
+            for (let x = 0; x <= canvas.width; x += 20) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            // Horizontal lines
+            for (let y = 0; y <= canvas.height; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            // Draw axes
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 2;
+            
+            // X-axis
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.stroke();
+            
+            // Y-axis
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+        }
+
+        function plotFunction() {
+            const functionInput = document.getElementById('functionInput').value;
+            if (!functionInput) return;
+            
+            const canvas = document.getElementById('graphCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.strokeStyle = '#00ff41';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const scale = 20;
+            
+            let firstPoint = true;
+            
+            for (let pixelX = 0; pixelX < canvas.width; pixelX++) {
+                const x = (pixelX - centerX) / scale;
+                try {
+                    const y = evaluateFunction(functionInput, x);
+                    const pixelY = centerY - (y * scale);
+                    
+                    if (firstPoint) {
+                        ctx.moveTo(pixelX, pixelY);
+                        firstPoint = false;
+                    } else {
+                        ctx.lineTo(pixelX, pixelY);
+                    }
+                } catch (e) {
+                    // Skip invalid points
+                }
+            }
+            
+            ctx.stroke();
+            graphFunctions.push(functionInput);
+        }
+
+        function evaluateFunction(func, x) {
+            // Simple function evaluator (replace x with actual value)
+            let expression = func.replace(/x/g, x.toString());
+            expression = expression.replace(/\^/g, '**');
+            expression = expression.replace(/sin/g, 'Math.sin');
+            expression = expression.replace(/cos/g, 'Math.cos');
+            expression = expression.replace(/tan/g, 'Math.tan');
+            expression = expression.replace(/log/g, 'Math.log10');
+            expression = expression.replace(/ln/g, 'Math.log');
+            expression = expression.replace(/sqrt/g, 'Math.sqrt');
+            
+            return eval(expression);
+        }
+
+        function clearGraph() {
+            initGraph();
+            graphFunctions = [];
+        }
+
+        // Matrix Functions
+        function createMatrix() {
+            const size = prompt('Enter matrix size (e.g., 3 for 3x3):');
+            if (!size) return;
+            
+            const n = parseInt(size);
+            currentMatrix = [];
+            
+            for (let i = 0; i < n; i++) {
+                const row = [];
+                for (let j = 0; j < n; j++) {
+                    const value = prompt(`Enter value for position [${i+1},${j+1}]:`);
+                    row.push(parseFloat(value) || 0);
+                }
+                currentMatrix.push(row);
+            }
+            
+            displayMatrix(currentMatrix);
+        }
+
+        function displayMatrix(matrix) {
+            const display = document.getElementById('matrixDisplay');
+            let matrixStr = '';
+            
+            matrix.forEach(row => {
+                matrixStr += '[' + row.map(val => val.toFixed(2)).join(', ') + ']\n';
+            });
+            
+            display.textContent = matrixStr;
+        }
+
+        function matrixTranspose() {
+            if (currentMatrix.length === 0) {
+                alert('Please create a matrix first');
+                return;
+            }
+            
+            const transposed = currentMatrix[0].map((_, colIndex) => 
+                currentMatrix.map(row => row[colIndex])
+            );
+            
+            currentMatrix = transposed;
+            displayMatrix(currentMatrix);
+            addToHistory('Matrix transposed');
+        }
+
+        function matrixDeterminant() {
+            if (currentMatrix.length === 0) {
+                alert('Please create a matrix first');
+                return;
+            }
+            
+            if (currentMatrix.length !== currentMatrix[0].length) {
+                alert('Matrix must be square to calculate determinant');
+                return;
+            }
+            
+            const det = calculateDeterminant(currentMatrix);
+            document.getElementById('matrixDisplay').textContent = `Determinant: ${det.toFixed(4)}`;
+            addToHistory(`Determinant = ${det.toFixed(4)}`);
+        }
+
+        function calculateDeterminant(matrix) {
+            const n = matrix.length;
+            
+            if (n === 1) return matrix[0][0];
+            if (n === 2) return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+            
+            let det = 0;
+            for (let i = 0; i < n; i++) {
+                const subMatrix = matrix.slice(1).map(row => 
+                    row.filter((_, colIndex) => colIndex !== i)
+                );
+                det += Math.pow(-1, i) * matrix[0][i] * calculateDeterminant(subMatrix);
+            }
+            
+            return det;
+        }
+
+        // Authentication Functions
+        function showAuthModal() {
+            if (currentUser) {
+                logout();
+            } else {
+                document.getElementById('authModal').classList.add('active');
+            }
+        }
+
+        function toggleAuthMode() {
+            isAuthMode = isAuthMode === 'login' ? 'signup' : 'login';
+            const title = document.getElementById('authTitle');
+            const switchText = document.getElementById('authSwitchText');
+            const switchLink = document.getElementById('authSwitchLink');
+            const submitBtn = document.querySelector('#authForm button[type="submit"]');
+            
+            if (isAuthMode === 'login') {
+                title.textContent = 'Login';
+                switchText.textContent = "Don't have an account?";
+                switchLink.textContent = 'Sign up';
+                submitBtn.textContent = 'Login';
+            } else {
+                title.textContent = 'Sign Up';
+                switchText.textContent = 'Already have an account?';
+                switchLink.textContent = 'Login';
+                submitBtn.textContent = 'Sign Up';
+            }
+        }
+
+        function updateAuthButton() {
+            const authBtn = document.getElementById('authBtn');
+            if (currentUser) {
+                authBtn.textContent = 'Logout';
+                authBtn.classList.remove('btn-primary');
+                authBtn.classList.add('btn-secondary');
+            } else {
+                authBtn.textContent = 'Login';
+                authBtn.classList.remove('btn-secondary');
+                authBtn.classList.add('btn-primary');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('calculatorUser');
+            updateAuthButton();
+            alert('Logged out successfully!');
+        }
+
+        // Save and Export Functions
+        function saveCalculation() {
+            if (!currentUser) {
+                alert('Please login to save calculations');
+                showAuthModal();
+                return;
+            }
+            
+            const saveData = {
+                model: currentModel,
+                history: calculationHistory,
+                timestamp: new Date().toISOString()
+            };
+            
+            const savedCalculations = JSON.parse(localStorage.getItem('savedCalculations') || '[]');
+            savedCalculations.push(saveData);
+            localStorage.setItem('savedCalculations', JSON.stringify(savedCalculations));
+            
+            alert('Calculation saved successfully!');
+        }
+
+        function exportHistory() {
+            if (calculationHistory.length === 0) {
+                alert('No calculations to export');
+                return;
+            }
+            
+            const exportData = {
+                model: calculatorModels[currentModel].name,
+                calculations: calculationHistory,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `calculator-history-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const themeBtn = document.querySelector('.nav-actions button');
+            themeBtn.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+        }
+
+        // Modal Functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Data Persistence
+        function loadUserData() {
+            const userData = localStorage.getItem('calculatorUser');
+            if (userData) {
+                currentUser = JSON.parse(userData);
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            
+            if (isAuthMode === 'signup') {
+                // Simple signup (in real app, this would be server-side)
+                currentUser = { email, id: Date.now() };
+                localStorage.setItem('calculatorUser', JSON.stringify(currentUser));
+                alert('Account created successfully!');
+            } else {
+                // Simple login (in real app, this would validate against server)
+                currentUser = { email, id: Date.now() };
+                localStorage.setItem('calculatorUser', JSON.stringify(currentUser));
+                alert('Logged in successfully!');
+            }
+            
+            updateAuthButton();
+            closeModal('authModal');
+        });
+
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Keyboard Support
+        document.addEventListener('keydown', function(e) {
+            const key = e.key;
+            
+            if (!isNaN(key) || key === '.') {
+                handleNumber(key);
+                updateDisplay();
+            } else if (['+', '-'].includes(key)) {
+                handleOperation(key);
+                updateDisplay();
+            } else if (key === '*') {
+                handleOperation('×');
+                updateDisplay();
+            } else if (key === '/') {
+                e.preventDefault();
+                handleOperation('÷');
+                updateDisplay();
+            } else if (key === 'Enter' || key === '=') {
+                handleSpecialButton('ENTER');
+                updateDisplay();
+            } else if (key === 'Escape') {
+                handleSpecialButton('CLEAR');
+                updateDisplay();
+            } else if (key === 'Backspace') {
+                handleSpecialButton('DEL');
+                updateDisplay();
+            }
+        });
+
+        // Initialize the calculator when page loads
+        document.addEventListener('DOMContentLoaded', initCalculator);
+
+    </script>
+        <footer style="background:#f5f6f7; padding:1rem 0; text-align:center; font-size:0.9rem; color:#555; border-top:1px solid #ddd; margin-top:2rem;">
+        2025 © TI 84 Calculator Online - Free Graphing Calculator Simulator.
+    </footer>
+</body>
+</html>
